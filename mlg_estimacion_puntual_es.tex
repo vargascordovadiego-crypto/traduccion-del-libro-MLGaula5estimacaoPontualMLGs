@@ -1,0 +1,108 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,bm}
+
+% Apariencia similar a las diapositivas originales
+\usetheme{default}
+\usecolortheme{rose}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{fg=blue!70!black,bg=blue!15}
+\setbeamercolor{block body}{bg=blue!7}
+\setbeamercolor{frametitle}{fg=blue!70!black}
+\setbeamercolor{title}{fg=blue!70!black}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamertemplate{footline}{%
+  \hfill\insertframenumber/10\hspace{1em}\vspace{0.5em}}
+
+\title{SME0823 Modelos Lineales Generalizados:\\ Estimación Puntual Frecuentista}
+\author{\textbf{Osvaldo Anacleto Jr}}
+\institute{\textbf{ICMC-USP}}
+\date{16 de agosto de 2018}
+
+\begin{document}
+
+% ---------- Página 1 ----------
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ---------- Página 2 ----------
+\begin{frame}
+  \begin{block}{Estructura de la clase}
+    \begin{itemize}
+      \item Repaso de inferencia\\
+            (archivo \texttt{GLMaula4bRevisaoInferencia.pdf})
+      \vspace{0.8em}
+      \item Función de verosimilitud de un MLG
+      \vspace{0.8em}
+      \item Definición del problema y obtención de las ecuaciones de score
+      \vspace{0.8em}
+      \item Matriz de información de Fisher para MLGs
+    \end{itemize}
+  \end{block}
+
+  \vspace{2em}
+  {\color{blue}\bfseries Referencias}\\
+  Cordeiro \& Demétrio (2008, Cap.~3,2), Paula (2004, caps.~1.5 y 1.6)
+  y Wakefield (2013, cap.~6.5)
+\end{frame}
+
+% ---------- Página 3 ----------
+\begin{frame}
+  \colorbox{violet!60!black}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep}{\color{white}
+      {\color{yellow!80!orange}\bfseries Objetivo:} dado un MLG, obtener
+      estimaciones puntuales del vector de parámetros
+      $\bm{\beta}=(\beta_0,\dots,\beta_p)^{\mathsf{T}}$ del componente
+      sistemático del modelo}}
+
+  \vspace{1em}
+  Estas estimaciones se obtendrán mediante el método de máxima
+  verosimilitud.
+
+  \vspace{0.8em}
+  Sea $Y$ una variable aleatoria referente a la variable respuesta (etiqueta)
+  del MLG, con distribución perteneciente a la familia exponencial.
+
+  \vspace{0.8em}
+  La función de verosimilitud del modelo se escribe con base en la función
+  de densidad de $Y$,
+  \begin{equation}
+    f(y;\theta,\phi)=\exp\Big\{\phi^{-1}\big[y\theta-b(\theta)\big]+c(y,\phi)\Big\}
+  \end{equation}
+
+  \vspace{0.5em}
+  con $\mathrm{E}[Y]=\mu=b'(\theta)$ y $\mathrm{Var}[Y]=\phi\,\mathrm{V}(\mu)$,
+  donde $\mathrm{V}(\mu)=b''(\theta)$ es la función de varianza.
+\end{frame}
+
+% ---------- Página 4 ----------
+\begin{frame}{Función de verosimilitud}
+  Sean $y_1,y_2,\dots,y_n$ una muestra de $n$ observaciones independientes
+  de la variable respuesta $Y$. La función de verosimilitud está dada por
+  {\footnotesize
+  \[
+    \mathrm{L}(\bm{\theta};y_1,\dots,y_n,\phi)
+    =\prod_{i=1}^{n} f(y_i;\theta_i,\phi)
+    =\prod_{i=1}^{n}\exp\Big\{\phi^{-1}\big[y_i\theta_i-b(\theta_i)\big]+c(y_i,\phi)\Big\}
+  \]}
+  donde $\bm{\theta}^{\mathsf{T}}=(\theta_1,\dots,\theta_n)$ son los
+  parámetros canónicos.
+
+  \vspace{1em}
+  Desde el punto de vista computacional y de análisis, es conveniente
+  considerar la función de log-verosimilitud
+  {\footnotesize
+  \[
+    \mathrm{l}(\bm{\theta};\phi,\bm{y})
+    =\sum_{i=1}^{n}\mathrm{l}_i
+    =\sum_{i=1}^{n}\log\big(\mathrm{L}(\theta_i;\phi,y_i)\big)
+    =\sum_{i=1}^{n}\Big[\phi^{-1}\big[y_i\theta_i-b(\theta_i)\big]+c(y_i,\phi)\Big]
+  \]}
+\end{frame}
+
+\end{document}
